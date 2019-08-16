@@ -96,7 +96,7 @@ installation:
 	python3 build_everything.py  
 
 然後就會對每個 scheme 生成 6 個測試檔案，然後就可以把 bin 裡面的檔案燒到 stm32f4 上測試  
-全部編完要很久(總共約600+個檔)，可以先編出前面幾個 .bin 檔後中斷，測試能不能跑  
+全部編完要很久(總共約700+個檔)，可以先編出前面幾個 .bin 檔後中斷，測試能不能跑  
   
 測試方式:  
 1. 將 stm32f4 板子上的 PA9(USART_TX) 接到 FT232 USB-Serial (UART) IC (那塊小東西) 的 RXD ， PA10(USART_RX) 接到 TXD  
