@@ -30,7 +30,8 @@ Libusb 1.0 (minimal v1.0.9)
 
 	sudo apt-get install libusb-1.0-0-dev  
   
-stlink github網址 https://github.com/texane/stlink  
+stlink : https://github.com/texane/stlink  
+
 	git clone https://github.com/texane/stlink.git  
 	cd stlink && make release  
 	cd build/Release && sudo make install  
@@ -46,7 +47,7 @@ Bus 001 Device 004: ID 0483:3748 STMicroelectronics ST-LINK/V2  (stm32板子，�
 和  
 Bus 001 Device 003: ID 0403:6001 Future Technology Devices International, Ltd FT232 USB-Serial (UART) IC  (那個小東西)  
 	
-我用dmesg | grep tty 後看到 FTDI USB Serial Device converter now attached to "ttyUSB0"	## 等等設定minicom的路徑
+我用 dmesg | grep tty 後看到 FTDI USB Serial Device converter now attached to "ttyUSB0"	## 等等設定minicom的路徑
 
 ### (3) minicom :
 		
@@ -91,7 +92,7 @@ installation:
 之後執行  
 	python3 build_everything.py  
 然後就會對每個 scheme 生成 6 個測試檔案，然後就可以把 bin 裡面的檔案燒到 stm32f4 上測試  
-全部編完要很久，可以先編出前面幾個 .bin 檔後中斷，測試能不能跑  
+全部編完要很久(總共約600+個檔)，可以先編出前面幾個 .bin 檔後中斷，測試能不能跑  
   
 測試方式:  
 1. 將 stm32f4 板子上的 PA9(USART_TX) 接到 FT232 USB-Serial (UART) IC (那塊小東西) 的 RXD ， PA10(USART_RX) 接到 TXD  
