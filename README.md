@@ -17,13 +17,17 @@ compile : arm-none-eabi-gcc ...
 		
 安裝stlink需要的東西  
 CMake (minimal v2.8.7)  
+
 	sudo apt install cmake  
 
 C compiler (gcc, clang, mingw)  
+
 	sudo apt install gcc  
 	sudo apt install clang  
 	sudo apt install mingw-w64    
+
 Libusb 1.0 (minimal v1.0.9)  
+
 	sudo apt-get install libusb-1.0-0-dev  
   
 stlink github網址 https://github.com/texane/stlink  
@@ -34,6 +38,7 @@ stlink github網址 https://github.com/texane/stlink
 
 然後應該就可以用 st-info 、 st-flash 、 st-util  
 e.g.  
+
 	st-flash write example.bin 0x08000000  
 
 將 stm32f429板子與另外一個usart用的小東西接上電腦後用 lsusb 列出裝置有  
@@ -46,6 +51,7 @@ Bus 001 Device 003: ID 0403:6001 Future Technology Devices International, Ltd FT
 ### (3) minicom :
 		
 我找的透過 USART 跟板子溝通的軟體，也有其他軟體可以用，不過目前我只會用這個  
+
 	sudo apt-get install minicom  
   
 打開minicom之後，按 ctrl+a 再按 o 進入設定，  
@@ -59,16 +65,22 @@ Bus 001 Device 003: ID 0403:6001 Future Technology Devices International, Ltd FT
   	
 require:  
 python3 (>= 3.6)  
+Ubuntu 18.04 LTS 自帶 3.6.8，或者也可以自行升級3.7  
+
+	sudo apt-get install python3.7
+  
 pyserial  
+
 	pip3 install pyserial  
 
 
 ## 2.用 stm32f4 測試 pqm4 上的 scheme
   
 installation:  
+
 	git clone --recursive https://github.com/mupq/pgm4.git  
   
-在執行 python3 build_everything.py 之前，因為我們要用的 USART 的腳位 PA9、PA10，跟 pqm4 預設用的 PA2、PA3 不一樣，所以要先去 /pqm4/common/hal-stm32f4.c 裡面更改 USART 的設定
+在執行 python3 build_everything.py 之前，因為我們要用的 USART 的腳位 PA9、PA10，跟 pqm4 預設用的 PA2、PA3 不一樣，所以要先去 /pqm4/common/hal-stm32f4.c 裡面更改 USART 的設定，
 把裡面的 "USART2" 都改成 "USART1"  
 "RCC_USART2" 改成 "RCC_USART1"  
 "GPIO2 | GPIO3" 改成 "GPIO9 | GPIO10"  
@@ -76,7 +88,7 @@ installation:
 	usart_send_blocking(USART1, '\r');  
 ，用來靠左對齊  
 
-執行  
+之後執行  
 	python3 build_everything.py  
 然後就會對每個 scheme 生成 6 個測試檔案，然後就可以把 bin 裡面的檔案燒到 stm32f4 上測試  
 全部編完要很久，可以先編出前面幾個 .bin 檔後中斷，測試能不能跑  
