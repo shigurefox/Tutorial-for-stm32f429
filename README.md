@@ -1,6 +1,6 @@
 # Tutorial for stm32f429
 
-## 1.Setup/Installation
+## 1. Setup/Installation
 
 ### (1) ARM Toolchain : 
 
@@ -16,7 +16,7 @@ compile : arm-none-eabi-gcc ...
 ### (2) STlink : 
 		
 安裝stlink需要的東西  
-CMake (minimal v2.8.7)  
+CMake (>= v2.8.7)  
 
 	sudo apt install cmake  
 
@@ -26,7 +26,7 @@ C compiler (gcc, clang, mingw)
 	sudo apt install clang  
 	sudo apt install mingw-w64    
 
-Libusb 1.0 (minimal v1.0.9)  
+Libusb 1.0 (>= v1.0.9)  
 
 	sudo apt-get install libusb-1.0-0-dev  
   
@@ -66,7 +66,7 @@ Bus 001 Device 003: ID 0403:6001 Future Technology Devices International, Ltd FT
   	
 require:  
 python3 (>= 3.6)  
-Ubuntu 18.04 LTS 自帶 3.6.8，或者也可以自行升級3.7  
+Ubuntu 18.04 LTS 自帶 3.6.8，或者也可以自行升級 3.7  
 
 	sudo apt-get install python3.7
   
@@ -75,7 +75,7 @@ pyserial
 	pip3 install pyserial  
 
 
-## 2.用 stm32f4 測試 pqm4 上的 scheme
+## 2. 用 stm32f4 測試 pqm4 上的 scheme
   
 installation:  
 
@@ -110,7 +110,7 @@ e.g.
 (2) 按板子上的 RESET button 就會顯示執行結果  
 或是 python3 pqm4/hostside/host_unidirectional.py 也可以看結果  
   
-## 3.stm32f4板子操作
+## 3. stm32f4板子操作
 
 libopencm3 : Open source ARM Cortex-M microcontroller library  
 http://libopencm3.org/  
