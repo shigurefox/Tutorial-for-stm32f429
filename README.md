@@ -86,11 +86,15 @@ installation:
 "RCC_USART2" 改成 "RCC_USART1"  
 "GPIO2 | GPIO3" 改成 "GPIO9 | GPIO10"  
 裡面用來輸出字串的 function : send_USART_srt(const char* in) ， 字串輸出完後只有 '\n' ，可以在 usart_send_blocking(USART1, '\n'); 下面加一行
-	usart_send_blocking(USART1, '\r');  
-，用來靠左對齊  
 
+	usart_send_blocking(USART1, '\r');  
+
+，用來靠左對齊  
+  
 之後執行  
+
 	python3 build_everything.py  
+
 然後就會對每個 scheme 生成 6 個測試檔案，然後就可以把 bin 裡面的檔案燒到 stm32f4 上測試  
 全部編完要很久(總共約600+個檔)，可以先編出前面幾個 .bin 檔後中斷，測試能不能跑  
   
@@ -98,7 +102,9 @@ installation:
 1. 將 stm32f4 板子上的 PA9(USART_TX) 接到 FT232 USB-Serial (UART) IC (那塊小東西) 的 RXD ， PA10(USART_RX) 接到 TXD  
 2. 將 .bin 檔燒錄到板子上  
 e.g.  
+
 	st-flash write crypto_kem_r5nd-1kemcca-0d_m4_speed.bin 0x08000000  
+
 3. 用 minicom 看執行結果  
 (1) 開啟 minicom  
 (2) 按板子上的 RESET button 就會顯示執行結果  
