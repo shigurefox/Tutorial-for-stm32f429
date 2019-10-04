@@ -57,7 +57,7 @@ Bus 001 Device 003: ID 0403:6001 Future Technology Devices International, Ltd FT
   
 打開minicom之後，按 ctrl+a 再按 o 進入設定，  
 進入 Serial port setup，按  
-	a，把路徑改成 /dev/ttyUSB0  	
+	a，把路徑改成 /dev/ttyUSB0  
 	e，Bps/Par/Bits : 115200 8N1  預設這樣，不用改  
 	f，Hardware Flow Control : 改成 NO  
 設定完後 Save setup as dfl 存成預設，然後離開設定畫面就可以開始用  
