@@ -122,19 +122,19 @@ libopencm3-template : https://github.com/libopencm3/libopencm3-template
 利用template進行make及測試的流程大致如下:  
 1. 一次性動作 
 ```
-	git clone https://github.com/libopencm3/libopencm3-template.git [your-project-name] 
-	cd [your-project-name] 
-	git submodule update --init 
-	make -C libopencm3 
+git clone https://github.com/libopencm3/libopencm3-template.git [your-project-name] 
+cd [your-project-name] 
+git submodule update --init 
+make -C libopencm3 
 ```
 
 2. 重複性動作 
 ```
-	cd [your-project-name] 
-	make -C my-project 
-	cd my-project 
-	st-flash write xxx.bin 0x08000000 
-	make clean 
+cd [your-project-name] 
+make -C my-project 
+cd my-project 
+st-flash write xxx.bin 0x08000000 
+make clean 
 ```
 
 ### (1) 用USART對stm32f4輸入輸出  
@@ -251,7 +251,7 @@ libopencm3提供產生亂數的function，定義在libopencm3/stm32/common/rng_c
 e.g.
 
 ```
-	int32_t *rndptr;
-	rng_get_random(rndptr);
-	int32_t rnd = rng_get_random_blocking();
+int32_t *rndptr;
+rng_get_random(rndptr);
+int32_t rnd = rng_get_random_blocking();
 ```
