@@ -110,19 +110,37 @@ e.g.
 (2) 按板子上的 RESET button 就會顯示執行結果  
 或是 python3 pqm4/hostside/host_unidirectional.py 也可以看結果  
   
-## 3. stm32f4板子操作
+## 3. stm32f4開發板基本操作
 
 libopencm3 : Open source ARM Cortex-M microcontroller library  
 http://libopencm3.org/  
 libopencm3-example : https://github.com/libopencm3/libopencm3  
 裡面示範一些板子周邊設備的基本操作  
 libopencm3-template : https://github.com/libopencm3/libopencm3-template  
-已經連結好libopencm3的空白範本，可以自己加東西進去測試功能，直接 make 就會生成 .bin 檔  
-  
+已經連結好libopencm3的空白範本，可以自己加東西進去測試功能，可以用make指令生成 .bin 檔  
+
+利用template進行make及測試的流程大致如下:  
+1. 一次性動作 
+```
+	git clone https://github.com/libopencm3/libopencm3-template.git [your-project-name] 
+	cd [your-project-name] 
+	git submodule update --init 
+	make -C libopencm3 
+```
+
+2. 重複性動作 
+```
+	cd [your-project-name] 
+	make -C my-project 
+	cd my-project 
+	st-flash write xxx.bin 0x08000000 
+	make clean 
+```
+
 ### (1) 用USART對stm32f4輸入輸出  
 可以參考 libopencm3-example/examples/stm32/f4/stm32f429i-discovery/usart_console/usart_console.c
   
-假設用 USART1 (對應板子上的 PA9 : TX  ，  PA10 : RX)，要在code裡設定 :
+假設用 USART1 (對應板子上的PA9 : TX，PA10 : RX)，要在code裡設定:  
 下面是從example裡面抓出來的部分code
 		
 	//////////////////這部分是用來enable要用到的設備，以及設定一些參數/////////////////////////////////////
@@ -157,7 +175,7 @@ libopencm3-template : https://github.com/libopencm3/libopencm3-template
 
 ***  
 
-基本上就是想要甚麼板子提供的基本功能，就用libopencm3寫好的function去enalbe那個設備、clock、設定參數等等。  
+基本上就是想要甚麼板子提供的基本功能，就用libopencm3寫好的function去enable那個設備、clock、設定參數等等。  
 然後視情況再另外寫function來達成想要的功能。  
   
 libopencm3-example/examples/stm32/f4/stm32f429i-discovery/usart_console/usart_console.c 的例子裡
@@ -192,7 +210,7 @@ libopencm3 只有幫我們寫好收發字元的function，若要收發字串，�
 
 可以參考 pqm4/common/hal-stm32f4.c裡 systick 的設定方法以及 pqm4/mupq/crypto_kem(or crypto_sign)裡面的6個測試檔的方法  
   
-Systick 是一個會隨著 system clock 跳動而倒數的一個 counter ， 每次倒數至 0 後會中斷，重新reload至設定好的值後繼續倒數，並call sys_tick_handler() 這個 function，這個function的內容由使用者自己定義(預設是空的)  
+Systick 是一個會隨著 system clock 跳動而倒數的一個 counter，每次倒數至 0 後會中斷，重新reload至設定好的值後繼續倒數，並call sys_tick_handler() 這個 function，這個function的內容由使用者自己定義(預設是空的)  
   
 以下是 hal-stm32f4.c 裡的部分code
   
@@ -224,3 +242,16 @@ e.g.
 	yourfunction();
 	t1 = hal_get_time();
 	print(t1-t0);
+
+### (3) True Random Number Generator的使用
+libopencm3提供產生亂數的function，定義在libopencm3/stm32/common/rng_common_v1.c裡  
+使用前須先確認clock_setup裡呼叫的是rcc_clock_setup_pll()，且hal_setup()裡有呼叫到rng_enable()  
+否則會卡在無窮迴圈(rng_get_random_blocking會一直重試到clock正常為止)  
+
+e.g.
+
+```
+	int32_t *rndptr;
+	rng_get_random(rndptr);
+	int32_t rnd = rng_get_random_blocking();
+```
