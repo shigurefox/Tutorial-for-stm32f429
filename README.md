@@ -79,7 +79,7 @@ pyserial
   
 installation:  
 
-	git clone --recursive https://github.com/mupq/pgm4.git  
+	git clone --recursive https://github.com/mupq/pqm4.git  
   
 在執行 python3 build_everything.py 之前，因為我們要用的 USART 的腳位 PA9、PA10，跟 pqm4 預設用的 PA2、PA3 不一樣，所以要先去 /pqm4/common/hal-stm32f4.c 裡面更改 USART 的設定，
 把裡面的 "USART2" 都改成 "USART1"  
